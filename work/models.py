@@ -262,7 +262,7 @@ class ComplexQNNSeq2Vec(Seq2VecEncoder):
             self,
             embedding_dim: int,
             output_dim: Optional[int] = None,
-            device: str = 'cuda:2'
+            device: str = 'cuda:0'
     ) -> None:
         super().__init__()
         self._embedding_dim = embedding_dim
@@ -304,7 +304,7 @@ class ComplexQNNSeq2Vec(Seq2VecEncoder):
         # print(projector.shape)
         # print(x.shape)
         prob = x.permute(0, 2, 1) @ projector  # [seq_len, 1] @ [[batch, emb_dim, seq_len]] = [batch, seq_len, 1]
-        prob = prob.squeeze()
+        prob = prob.squeeze(-1)
         return prob.abs()
     
     def project_measure(self, V: torch.Tensor, P: torch.Tensor = None):

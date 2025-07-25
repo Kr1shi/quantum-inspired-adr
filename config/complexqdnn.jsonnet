@@ -1,6 +1,6 @@
 
-local batch_size = 16;
-local cuda_device = 2;
+local batch_size = 4;
+local cuda_device = 0;
 local num_epochs = 2;
 local seed = 42;
 
@@ -10,10 +10,7 @@ local dropout = 0.2;
 local lr = 0.00003;
 local output_dim = 128;
 local model_name = 'RoBERTa';
-local ptm_name = 
-  if model_name == 'RoBERTa'
-  then 'roberta-base'
-  else 'bert-base-cased';
+local ptm_name = 'distilroberta-base';
 
 local SST2_train_path = './data/SST/Binary/sentiment-train';
 local SST2_val_path = './data/SST/Binary/sentiment-dev';
@@ -101,6 +98,7 @@ local val_path =
   },
   trainer: {
     cuda_device: cuda_device,
+    num_gradient_accumulation_steps: 4,
     num_epochs: num_epochs,
     optimizer: {
       lr: lr,

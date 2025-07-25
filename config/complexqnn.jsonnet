@@ -1,6 +1,6 @@
 
 local batch_size = 32;
-local cuda_device = 2;
+local cuda_device = 0;
 local num_epochs = 20;
 local seed = 42;
 
@@ -74,6 +74,7 @@ local val_path =
     encoder: {
       type: 'complexqnn',
       embedding_dim: embedding_dim,
+      output_dim: output_dim,
     },
     num_classes: num_classes
   },
